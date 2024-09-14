@@ -58,7 +58,7 @@ export const App = () => {
   return (
     <>
       <div className={appSt.container}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div  style={{ display: "flex", alignItems: "center", marginTop: "1.5rem" }}>
           <img
             alt="Картинка карты"
             src={alfa}

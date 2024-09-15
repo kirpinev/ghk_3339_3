@@ -47,6 +47,15 @@ export const App = () => {
     setThx(true);
   }, []);
 
+  const handleScrollBottom = useCallback((expanded: boolean) => {
+    if (expanded) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   if (thxShow) {
     return <ThxLayout />;
   }
@@ -74,7 +83,7 @@ export const App = () => {
         </div>
 
         <Typography.TitleResponsive
-          style={{ marginTop: "1.5rem" }}
+          style={{ marginTop: "1.5rem", marginBottom: "0.5rem" }}
           tag="h3"
           view="xsmall"
           font="system"
@@ -108,6 +117,7 @@ export const App = () => {
           collapsedLabel="Что входит"
           expandedLabel="Скрыть"
           className={appSt.collapse}
+          onTransitionEnd={handleScrollBottom}
         >
           <List tag="ul" marker="•">
             <List.Item>+1 топовая категория кэшбэка</List.Item>

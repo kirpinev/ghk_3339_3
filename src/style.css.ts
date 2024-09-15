@@ -25,7 +25,7 @@ const box = style({
 });
 
 const collapse = style({
-  marginLeft: "36px",
+  marginLeft: "37px",
 });
 
 globalStyle(`${collapse} > div`, {
@@ -36,8 +36,16 @@ const radioCheck = style({
   maxWidth: "272px",
 });
 
+globalStyle(`${radioCheck} > span > span:first-child`, {
+  fontWeight: "500",
+});
+
 const radioSmart = style({
   maxWidth: "296px",
+});
+
+globalStyle(`${radioSmart} > span > span:first-child`, {
+  fontWeight: "500",
 });
 
 export const appSt = {

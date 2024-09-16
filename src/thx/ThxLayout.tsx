@@ -1,14 +1,14 @@
 import { Typography } from "@alfalab/core-components/typography";
-import heart from "../assets/heart.png";
+import { ButtonMobile } from "@alfalab/core-components/button/mobile";
+import rocket from "../assets/rocket.png";
 import { thxSt } from "./style.css";
 import { appSt } from "../style.css.ts";
-import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 
 export const ThxLayout = () => {
   return (
     <>
       <div className={thxSt.container}>
-        <img src={heart} width={135} className={thxSt.heart} />
+        <img alt="Картинка ракеты" src={rocket} width={135} className={thxSt.heart} />
         <Typography.TitleResponsive
           font="system"
           tag="h1"

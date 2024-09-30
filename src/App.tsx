@@ -20,7 +20,7 @@ enum Product {
 export const App = () => {
   const [loading, setLoading] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
-  const [selectedOption, setSelectedOption] = useState<Product>(Product.Check);
+  const [selectedOption, setSelectedOption] = useState<Product | null>(null);
   const [showSmart, setShowSmart] = useState(false);
 
   const submit = useCallback(() => {
@@ -141,6 +141,7 @@ export const App = () => {
           block
           view="primary"
           onClick={handleSelection}
+          disabled={!selectedOption}
         >
           Подключить
         </ButtonMobile>

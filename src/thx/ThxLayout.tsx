@@ -16,11 +16,11 @@ export const ThxLayout = () => {
           defaultMargins
           weight="bold"
         >
-          Спасибо за участие в эксперименте
+         Только тссс
         </Typography.TitleResponsive>
         <Typography.Text tag="p" view="primary-medium" defaultMargins={false}>
-          Сервис находится в разработке. Как только он будет доступен, мы
-          обязательно вам сообщим.
+          Вы поучаствовали в очень важном исследовании, которое поможет улучшить
+          продукт. Вы – наш герой!
         </Typography.Text>
       </div>
 

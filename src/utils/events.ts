@@ -1,19 +1,13 @@
 declare global {
   interface Window {
     dataLayer: unknown[];
+    gtag: (e: "event", action: string) => void;
   }
 }
 
 type Payload = {
-  categories: 1 | 0;
-  groups: 1 | 0;
-  planing: 1 | 0;
-  limits: 1 | 0;
-  comments: 1 | 0;
-  tags: 1 | 0;
-  smart: 1 | 0;
-  forecast: 1 | 0;
-  advices: 1 | 0;
+  sub_choice: "AlfaSmart" | "AlfaCheck" | null;
+  sub_hidden: "Yes" | "No";
 };
 
 export const sendDataToGA = async (payload: Payload) => {
@@ -24,17 +18,17 @@ export const sendDataToGA = async (payload: Payload) => {
     }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
     await fetch(
-      'https://script.google.com/macros/s/AKfycbyhTZ-rlwpsvCjD7hhj0J7lO6kiKEEUfLcJ0r3HkS3d7ZovDo2RQhERmVdvbY1Sqyg24Q/exec',
+      "https://script.google.com/macros/s/AKfycbx5EKHBtfmrQmjwTo_fk7uj4KfK9UTV7oq7gFotdgVUPNjPjCzHcNqPc2NrBDIraqvr/exec",
       {
-        redirect: 'follow',
-        method: 'POST',
-        body: JSON.stringify({ date, ...payload, variant: 'variant1' }),
+        redirect: "follow",
+        method: "POST",
+        body: JSON.stringify({ date, ...payload, variant: "ghk_3339_3" }),
         headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
+          "Content-Type": "text/plain;charset=utf-8",
         },
       },
     );
   } catch (error) {
-    console.error('Error!', error);
+    console.error("Error!", error);
   }
 };

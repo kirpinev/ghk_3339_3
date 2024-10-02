@@ -1,6 +1,6 @@
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 import { Typography } from "@alfalab/core-components/typography";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import alfa from "./assets/alfa-card.png";
 import { LS, LSKeys } from "./ls";
@@ -11,10 +11,11 @@ import { Collapse } from "@alfalab/core-components/collapse";
 import { List } from "@alfalab/core-components/list";
 import { Gap } from "@alfalab/core-components/gap";
 import { SmartLayout } from "./smart/SmartLayout.tsx";
+import { sendDataToGA } from "./utils/events.ts";
 
 enum Product {
-  Check = "alfa-check",
-  Smart = "alfa-smart",
+  Check = "AlfaCheck",
+  Smart = "AlfaSmart",
 }
 
 export const App = () => {
@@ -22,18 +23,26 @@ export const App = () => {
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
   const [selectedOption, setSelectedOption] = useState<Product | null>(null);
   const [showSmart, setShowSmart] = useState(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [triggered, setTriggered] = useState<boolean>(false);
 
-  const submit = useCallback(() => {
+  const clickDetails = () => {
+    window.gtag("event", "sub_hidden_3339_3_click");
+  };
+
+  const submit = () => {
     setLoading(true);
-    // sendDataToGA({})
-    Promise.resolve().then(() => {
+    sendDataToGA({
+      sub_choice: selectedOption,
+      sub_hidden: expanded ? "Yes" : "No",
+    }).then(() => {
       LS.setItem(LSKeys.ShowThx, true);
       setThx(true);
       setLoading(false);
     });
-  }, []);
+  };
 
-  const handleSelection = useCallback(() => {
+  const handleSelection = () => {
     if (selectedOption === Product.Smart) {
       setShowSmart(true);
     }
@@ -41,33 +50,41 @@ export const App = () => {
     if (selectedOption === Product.Check) {
       submit();
     }
-  }, [selectedOption]);
+  };
 
-  const handleShowThx = useCallback(() => {
+  const handleShowThx = () => {
     setThx(true);
-  }, []);
+  };
 
-  const handleScrollBottom = useCallback((expanded: boolean) => {
+  const handleScrollBottom = (expanded: boolean) => {
     if (expanded) {
       window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth",
       });
     }
-  }, []);
+  };
 
   if (thxShow) {
     return <ThxLayout />;
   }
 
   if (showSmart) {
-    return <SmartLayout handleShowThx={handleShowThx} />;
+    return (
+      <SmartLayout
+        handleShowThx={handleShowThx}
+        selectedOption={selectedOption}
+        expanded={expanded}
+      />
+    );
   }
 
   return (
     <>
       <div className={appSt.container}>
-        <div  style={{ display: "flex", alignItems: "center", marginTop: "1.5rem" }}>
+        <div
+          style={{ display: "flex", alignItems: "center", marginTop: "1.5rem" }}
+        >
           <img
             alt="Картинка карты"
             src={alfa}
@@ -118,6 +135,13 @@ export const App = () => {
           expandedLabel="Скрыть"
           className={appSt.collapse}
           onTransitionEnd={handleScrollBottom}
+          onExpandedChange={(expanded) => {
+            clickDetails();
+            setTriggered(true);
+            if (!triggered) {
+              setExpanded(expanded);
+            }
+          }}
         >
           <List tag="ul" marker="•">
             <List.Item>+1 топовая категория кэшбэка</List.Item>

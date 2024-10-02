@@ -3,18 +3,27 @@ import { smartSt } from "./style.css";
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 import { FC, useCallback, useState } from "react";
 import { LS, LSKeys } from "../ls";
+import { sendDataToGA } from "../utils/events.ts";
 
 interface ISmartLayoutProps {
   handleShowThx: () => void;
+  selectedOption: "AlfaSmart" | "AlfaCheck" | null;
+  expanded: boolean;
 }
 
-export const SmartLayout: FC<ISmartLayoutProps> = ({ handleShowThx }) => {
+export const SmartLayout: FC<ISmartLayoutProps> = ({
+  handleShowThx,
+  selectedOption,
+  expanded,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const submit = useCallback(() => {
     setLoading(true);
-    // sendDataToGA({})
-    Promise.resolve().then(() => {
+    sendDataToGA({
+      sub_choice: selectedOption,
+      sub_hidden: expanded ? "Yes" : "No",
+    }).then(() => {
       LS.setItem(LSKeys.ShowThx, true);
       setLoading(false);
       handleShowThx();

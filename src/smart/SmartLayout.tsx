@@ -18,7 +18,12 @@ export const SmartLayout: FC<ISmartLayoutProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
+  const clickApprove = () => {
+    window.gtag("event", "alfa_smart_3339_3_approve");
+  };
+
   const submit = useCallback(() => {
+    clickApprove();
     setLoading(true);
     sendDataToGA({
       sub_choice: selectedOption,

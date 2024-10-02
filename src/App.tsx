@@ -29,10 +29,6 @@ export const App = () => {
     window.gtag("event", "sub_hidden_3339_3_click");
   };
 
-  const clickApprove = () => {
-    window.gtag("event", "alfa_smart_3339_3_approve");
-  };
-
   const submit = () => {
     setLoading(true);
     sendDataToGA({
@@ -47,7 +43,6 @@ export const App = () => {
 
   const handleSelection = () => {
     if (selectedOption === Product.Smart) {
-      clickApprove();
       setShowSmart(true);
     }
 

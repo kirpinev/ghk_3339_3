@@ -24,7 +24,6 @@ export const App = () => {
   const [selectedOption, setSelectedOption] = useState<Product | null>(null);
   const [showSmart, setShowSmart] = useState(false);
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [triggered, setTriggered] = useState<boolean>(false);
 
   const clickDetails = () => {
     window.gtag("event", "sub_hidden_3339_3_click");
@@ -140,12 +139,9 @@ export const App = () => {
           expandedLabel="Скрыть"
           className={appSt.collapse}
           onTransitionEnd={handleScrollBottom}
-          onExpandedChange={(expanded) => {
+          onExpandedChange={() => {
             clickDetails();
-            setTriggered(true);
-            if (!triggered) {
-              setExpanded(expanded);
-            }
+            setExpanded(true);
           }}
         >
           <List tag="ul" marker="•">
